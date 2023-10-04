@@ -45,9 +45,7 @@ const requireLogin = (req, res, next) => {
     }
 }
 
-app.get('/', (req, res) => {
-    res.send('Homepage')
-})
+
 
 app.get('/register', (req, res) => {
     res.render('register')
