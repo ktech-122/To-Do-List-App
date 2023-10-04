@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <%=todoInfo.title%>
+    </title>
+</head>
+
+<body>
+    <h1>Details for <%=todoInfo.title%>
+    </h1>
+    <ul>
+        <li>
+            <%=todoInfo.description%>
+        </li>
+        <li>
+            <%=todoInfo.dueDate%>
+        </li>
+        <li>
+            <%= todoInfo.completed ? 'Completed' : 'Not Completed' %>
+        </li>
+    </ul>
+    <br>
+    <form method="POST" action="/todo/<%= todoInfo._id %>?_method=DELETE">
+        <button>Delete</button>
+    </form>
+
+    <br>
+
+    <a href="/todo">Back to To-Do Page</a>
+    <br>
+    <a href="/todo/<%=todoInfo.id%>/edit">Edit</a>
+</body>
+
+</html>
