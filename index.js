@@ -1,3 +1,7 @@
+if (process.env.NODE_ENV !== 'production') {
+    require('dotenv').config();
+}
+
 const express = require("express");
 const app = express()
 const path = require('path')
@@ -9,16 +13,19 @@ const Todo = require('./models/todo');
 const bcrypt = require('bcrypt');
 const User = require('./models/user');
 const sessionOptions = { secret: 'bigsecret', resave: false, saveUninitialized: true };
-
+const dbUrl = process.env.DB_URL
+// 'mongodb://127.0.0.1:27017/toDoApp'
 
 mongoose.set('strictQuery', true);
-mongoose.connect('mongodb://127.0.0.1:27017/toDoApp')
-    .then(() => {
-        console.log("MONGO CONNECTION OPEN!!!")
-    }).catch(err => {
-        console.log("OH NO MONGO CONNECTION Error!!")
-        console.log(err)
-    })
+mongoose.connect(dbUrl, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+}).then(() => {
+    console.log("MONGO CONNECTION OPEN!!!")
+}).catch(err => {
+    console.log("OH NO MONGO CONNECTION Error!!")
+    console.log(err)
+})
 
 
 
