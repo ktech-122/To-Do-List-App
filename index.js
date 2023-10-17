@@ -31,7 +31,7 @@ const store = MongoStore.create({
     mongoUrl: dbUrl,
     touchAfter: 24 * 60 * 60,
     crypto: {
-        secret: 'bigsecret'
+        secret: process.env.SECRET
     }
 });
 
@@ -39,7 +39,9 @@ store.on("error", (err) => {
     console.log("SESSION STORE ERROR: " + err)
 })
 
-const sessionOptions = { store, secret: 'bigsecret', resave: false, saveUninitialized: true };
+const secret = process.env.SECRET
+
+const sessionOptions = { store, secret, resave: false, saveUninitialized: true };
 
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
