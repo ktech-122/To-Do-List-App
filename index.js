@@ -241,8 +241,8 @@ app.post('/logout', (req, res) => {
     res.redirect('/login')
 })
 
+const PORT = process.env.PORT
 
-
-app.listen('3000', () => {
-    console.log('To-list is now Running at port 3000')
+app.listen(PORT, () => {
+    console.log('To-list is now Running at port ' + PORT)
 })
