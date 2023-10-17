@@ -39,7 +39,7 @@ store.on("error", (err) => {
     console.log("SESSION STORE ERROR: " + err)
 })
 
-const secret = process.env.SECRET
+const secret = process.env.SESSION_SECRET
 
 const sessionOptions = { store, secret, resave: false, saveUninitialized: true };
 
@@ -243,7 +243,7 @@ app.post('/logout', (req, res) => {
     res.redirect('/login')
 })
 
-const PORT = process.env.PORT
+const PORT = process.env.PORT || 3000
 
 app.listen(PORT, () => {
     console.log('To-list is now Running at port ' + PORT)
