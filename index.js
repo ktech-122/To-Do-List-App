@@ -12,7 +12,7 @@ const session = require('express-session');
 const Todo = require('./models/todo');
 const bcrypt = require('bcrypt');
 const User = require('./models/user');
-const sessionOptions = { secret: 'bigsecret', resave: false, saveUninitialized: true };
+const MongoStore = require("connect-mongo");
 const dbUrl = process.env.DB_URL
 // 'mongodb://127.0.0.1:27017/toDoApp'
 
@@ -27,7 +27,19 @@ mongoose.connect(dbUrl, {
     console.log(err)
 })
 
+const store = MongoStore.create({
+    mongoUrl: dbUrl,
+    touchAfter: 24 * 60 * 60,
+    crypto: {
+        secret: 'bigsecret'
+    }
+});
 
+store.on("error", (err) => {
+    console.log("SESSION STORE ERROR: " + err)
+})
+
+const sessionOptions = { store, secret: 'bigsecret', resave: false, saveUninitialized: true };
 
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
@@ -43,6 +55,10 @@ app.use((req, res, next) => {
     res.locals.messages = [req.flash('success'), ...req.flash('delete')];
     next();
 })
+
+
+
+
 
 const requireLogin = (req, res, next) => {
     if (req.session.user_id) {
