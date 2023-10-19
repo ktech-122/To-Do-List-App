@@ -38,8 +38,7 @@ const store = MongoStore.create({
 store.on("error", (err) => {
     console.log("SESSION STORE ERROR: " + err)
 })
-
-const secret = process.env.SESSION_SECRET
+const secret = process.env.SESSION_SECRET || 'bigsecret';
 
 const sessionOptions = { store, secret, resave: false, saveUninitialized: true };
 
