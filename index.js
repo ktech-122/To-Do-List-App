@@ -69,7 +69,14 @@ const requireLogin = (req, res, next) => {
     }
 }
 
-
+app.get('/', (req, res) => {
+    try {
+        res.redirect('/register')
+    }
+    catch (err) {
+        console.log(err)
+    }
+})
 
 app.get('/register', (req, res) => {
     res.render('register')
